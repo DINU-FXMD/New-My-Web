@@ -436,23 +436,55 @@
     <h2 class="section-title">WhatsApp Channel Boost Service</h2>
     <div class="subsections-container">
         <!-- Followers Plans -->
-        <div class="subsection">
-            <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
-            <div class="subsection-content">
-                <h3 class="subsection-title">Followers</h3>
-                <div class="subsection-price">Rs 350 - Rs 600</div>
-                <ul class="subsection-features">
-                    <li>1K Followers - Rs 350</li>
-                    <li>2K Followers - Rs 600</li>
-                    <li>Real, active users</li>
-                    <li>Gradual delivery</li>
-                </ul>
-                <div class="action-row">
-                    <a href="https://wa.me/728899640?text=Order%201K%20Followers%20please%20send%20details:-" class="buy-button">Buy 1K Follow</a>
-                    <a href="https://wa.me/728899640?text=Order%202K%20Followers%20please%20send%20details:-" class="buy-button">Buy 2K Follow</a>
-                </div>
-            </div>
-        </div>
+        <!-- Followers Plans -->
+<div class="subsection">
+  <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+  <div class="subsection-content">
+    <h3 class="subsection-title">Followers</h3>
+    <div class="subsection-price">Rs 350 - Rs 600</div>
+    <ul class="subsection-features">
+      <li>1K Followers - Rs 350</li>
+      <li>2K Followers - Rs 600</li>
+      <li>Real, active users</li>
+      <li>Gradual delivery</li>
+    </ul>
+
+    <!-- Select box -->
+    <label for="followersSelect">Select Package:</label>
+    <select id="followersSelect" class="subsection-select">
+      <option value="1K Followers - Rs 350">1K Followers ✔️</option>
+      <option value="2K Followers - Rs 600">2K Followers ✔️</option>
+    </select>
+
+    <!-- Buy Button -->
+    <a id="followersBuyBtn" href="#" target="_blank" class="buy-button">Buy Now</a>
+  </div>
+</div>
+
+<script>
+  const select = document.getElementById("followersSelect");
+  const buyBtn = document.getElementById("followersBuyBtn");
+
+  // default value set
+  updateLink();
+
+  // event change handle
+  select.addEventListener("change", updateLink);
+
+  function updateLink() {
+    const selected = select.value;
+    let message = "";
+
+    if (selected.includes("1K")) {
+      message = "Order 1K Followers please send details:-";
+    } else if (selected.includes("2K")) {
+      message = "Order 2K Followers please send details:-";
+    }
+
+    // encodeURIComponent safe for URL
+    buyBtn.href = "https://wa.me/728899640?text=" + encodeURIComponent(message);
+  }
+</script>
 
         <!-- Reacts Plans -->
         <div class="subsection">
