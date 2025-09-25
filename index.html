@@ -461,14 +461,40 @@
   </div>
 </div>
 
+<style>
+  /* Select Box Styling */
+  .subsection-select {
+    width: 100%;                 /* full width */
+    padding: 12px 14px;          /* bigger padding */
+    font-size: 1.1rem;           /* larger font */
+    border: 2px solid #25d366;   /* WhatsApp green border */
+    border-radius: 8px;          /* rounded edges */
+    background-color: #f8f8f8;   /* light background */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 8px 0 16px 0;        /* spacing around */
+  }
+
+  /* Highlight on focus */
+  .subsection-select:focus {
+    outline: none;
+    border-color: #128c7e;       /* darker green focus */
+    box-shadow: 0 0 8px rgba(18,140,126,0.4);
+    background-color: #fff;
+  }
+
+  /* Make options a bit larger too */
+  .subsection-select option {
+    padding: 10px;
+    font-size: 1rem;
+  }
+</style>
+
 <script>
   const select = document.getElementById("followersSelect");
   const buyBtn = document.getElementById("followersBuyBtn");
 
-  // default value set
   updateLink();
-
-  // event change handle
   select.addEventListener("change", updateLink);
 
   function updateLink() {
@@ -481,7 +507,6 @@
       message = "Order 2K Followers please send details:-";
     }
 
-    // encodeURIComponent safe for URL
     buyBtn.href = "https://wa.me/728899640?text=" + encodeURIComponent(message);
   }
 </script>
