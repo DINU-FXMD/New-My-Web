@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatsApp Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Base Styles */
         * {
@@ -122,72 +123,97 @@
             color: var(--primary);
         }
         
-        /* Services Section */
-        .services {
-            padding: 5rem 2rem;
+        /* Main Sections */
+        .main-section {
+            padding: 5rem 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .section-title {
             text-align: center;
             margin-bottom: 3rem;
             font-size: 2.5rem;
+            padding: 0 2rem;
         }
         
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Horizontal Scrolling Subsections */
+        .subsections-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding: 2rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--dark);
         }
         
-        .service-card {
+        .subsections-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .subsections-container::-webkit-scrollbar-track {
+            background: var(--dark);
+            border-radius: 10px;
+        }
+        
+        .subsections-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        .subsection {
+            display: inline-block;
+            width: 350px;
+            margin-right: 2rem;
+            vertical-align: top;
+            white-space: normal;
             background-color: var(--dark);
             border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
         }
         
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        .subsection:hover {
+            transform: translateY(-5px);
         }
         
-        .service-image {
+        .subsection-image {
             height: 200px;
             background-size: cover;
             background-position: center;
         }
         
-        .service-content {
+        .subsection-content {
             padding: 1.5rem;
         }
         
-        .service-title {
-            font-size: 1.5rem;
+        .subsection-title {
+            font-size: 1.3rem;
             margin-bottom: 1rem;
             color: var(--primary);
         }
         
-        .service-price {
-            font-size: 1.8rem;
+        .subsection-price {
+            font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 1rem;
         }
         
-        .service-features {
+        .subsection-features {
             list-style: none;
             margin-bottom: 1.5rem;
         }
         
-        .service-features li {
+        .subsection-features li {
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
         }
         
-        .service-features li:before {
+        .subsection-features li:before {
             content: "✓";
             color: var(--primary);
             margin-right: 10px;
@@ -209,6 +235,19 @@
         
         .buy-button:hover {
             background-color: #128C7E;
+        }
+        
+        /* Section Colors */
+        #bot-service {
+            background-color: rgba(37, 211, 102, 0.05);
+        }
+        
+        #channel-boost {
+            background-color: rgba(18, 140, 126, 0.05);
+        }
+        
+        #paid-promotions {
+            background-color: rgba(37, 211, 102, 0.08);
         }
         
         /* Proof Section */
@@ -305,8 +344,8 @@
                 font-size: 2.5rem;
             }
             
-            .services-grid {
-                grid-template-columns: 1fr;
+            .subsection {
+                width: 300px;
             }
         }
     </style>
@@ -316,12 +355,13 @@
     <header>
         <nav>
             <div class="logo">
-                <i>⚡</i> WhatsApp Services
+                <i class="fab fa-whatsapp"></i> WhatsApp Services
             </div>
             <ul class="nav-links">
-                <li><a href="#services">Services</a></li>
+                <li><a href="#bot-service">Bot Service</a></li>
+                <li><a href="#channel-boost">Channel Boost</a></li>
+                <li><a href="#paid-promotions">Paid Promotions</a></li>
                 <li><a href="#proof">Proof</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -330,57 +370,167 @@
     <section class="hero">
         <h1>Professional WhatsApp Services</h1>
         <p>Boost your WhatsApp presence with our premium services. From bots to channel promotions, we've got you covered.</p>
-        <a href="#services" class="cta-button">Explore Services</a>
+        <a href="#bot-service" class="cta-button">Explore Services</a>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <h2 class="section-title">Our Services</h2>
+    <!-- WhatsApp Bot Service Section -->
+    <section id="bot-service" class="main-section">
+        <h2 class="section-title">WhatsApp Bot Service</h2>
         
-        <div class="services-grid">
-            <!-- WhatsApp Bot Service -->
-            <div class="service-card">
-                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
-                <div class="service-content">
-                    <h3 class="service-title">WhatsApp Bot Service</h3>
-                    <div class="service-price">Rs 100 - Rs 200</div>
-                    <ul class="service-features">
-                        <li>2 Weeks - Rs 100</li>
-                        <li>1 Month - Rs 200</li>
-                        <li>Easy setup</li>
+        <div class="subsections-container">
+            <!-- 2 Week Plan -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">2 Week Plan</h3>
+                    <div class="subsection-price">Rs 100</div>
+                    <ul class="subsection-features">
+                        <li>14 days of service</li>
+                        <li>Basic bot features</li>
                         <li>24/7 support</li>
+                        <li>Easy setup</li>
                     </ul>
                     <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
                 </div>
             </div>
             
-            <!-- WhatsApp Channel Boost Service -->
-            <div class="service-card">
-                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
-                <div class="service-content">
-                    <h3 class="service-title">WhatsApp Channel Boost</h3>
-                    <div class="service-price">Rs 350 - Rs 600</div>
-                    <ul class="service-features">
+            <!-- 1 Month Plan -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">1 Month Plan</h3>
+                    <div class="subsection-price">Rs 200</div>
+                    <ul class="subsection-features">
+                        <li>30 days of service</li>
+                        <li>Advanced bot features</li>
+                        <li>Priority support</li>
+                        <li>Custom commands</li>
+                    </ul>
+                    <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Premium Plan -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">Premium Plan</h3>
+                    <div class="subsection-price">Rs 350</div>
+                    <ul class="subsection-features">
+                        <li>60 days of service</li>
+                        <li>All premium features</li>
+                        <li>24/7 priority support</li>
+                        <li>Custom development</li>
+                    </ul>
+                    <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Channel Boost Section -->
+    <section id="channel-boost" class="main-section">
+        <h2 class="section-title">WhatsApp Channel Boost Service</h2>
+        
+        <div class="subsections-container">
+            <!-- Followers Plans -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">Followers</h3>
+                    <div class="subsection-price">Rs 350 - Rs 600</div>
+                    <ul class="subsection-features">
                         <li>1K Followers - Rs 350</li>
                         <li>2K Followers - Rs 600</li>
-                        <li>1 Week Reacts - Rs 200</li>
-                        <li>1 Month Reacts - Rs 600</li>
+                        <li>Real, active users</li>
+                        <li>Gradual delivery</li>
                     </ul>
                     <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
                 </div>
             </div>
             
-            <!-- WhatsApp Channel Paid Promotions -->
-            <div class="service-card">
-                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
-                <div class="service-content">
-                    <h3 class="service-title">Channel Paid Promotions</h3>
-                    <div class="service-price">Rs 300 - Rs 800</div>
-                    <ul class="service-features">
-                        <li>1 Hour - Rs 300</li>
-                        <li>2 Hours - Rs 500</li>
-                        <li>3 Hours - Rs 800</li>
+            <!-- Reacts Plans -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">Reacts</h3>
+                    <div class="subsection-price">Rs 200 - Rs 600</div>
+                    <ul class="subsection-features">
+                        <li>1 Week Reacts - Rs 200</li>
+                        <li>2 Week Reacts - Rs 350</li>
+                        <li>1 Month Reacts - Rs 600</li>
+                        <li>High engagement</li>
+                    </ul>
+                    <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Combo Plan -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">Combo Plan</h3>
+                    <div class="subsection-price">Rs 800</div>
+                    <ul class="subsection-features">
+                        <li>1K Followers + 1 Week Reacts</li>
+                        <li>Best value package</li>
+                        <li>Increased visibility</li>
+                        <li>Maximum engagement</li>
+                    </ul>
+                    <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Channel Paid Promotions Section -->
+    <section id="paid-promotions" class="main-section">
+        <h2 class="section-title">WhatsApp Channel Paid Promotions</h2>
+        
+        <div class="subsections-container">
+            <!-- 1 Hour Promotion -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">1 Hour Promotion</h3>
+                    <div class="subsection-price">Rs 300</div>
+                    <ul class="subsection-features">
+                        <li>1 hour of promotion</li>
                         <li>Targeted audience</li>
+                        <li>High visibility</li>
+                        <li>Quick results</li>
+                    </ul>
+                    <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- 2 Hour Promotion -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">2 Hour Promotion</h3>
+                    <div class="subsection-price">Rs 500</div>
+                    <ul class="subsection-features">
+                        <li>2 hours of promotion</li>
+                        <li>Extended reach</li>
+                        <li>Better engagement</li>
+                        <li>Value package</li>
+                    </ul>
+                    <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- 3 Hour Promotion -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">3 Hour Promotion</h3>
+                    <div class="subsection-price">Rs 800</div>
+                    <ul class="subsection-features">
+                        <li>3 hours of promotion</li>
+                        <li>1 hour free (bonus)</li>
+                        <li>Maximum exposure</li>
+                        <li>Best results</li>
                     </ul>
                     <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
                 </div>
@@ -411,11 +561,12 @@
     </section>
 
     <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <ul class="footer-links">
-            <li><a href="#services">Services</a></li>
+            <li><a href="#bot-service">Bot Service</a></li>
+            <li><a href="#channel-boost">Channel Boost</a></li>
+            <li><a href="#paid-promotions">Paid Promotions</a></li>
             <li><a href="#proof">Proof</a></li>
-            <li><a href="https://wa.me/728899640">Contact</a></li>
         </ul>
         <p class="copyright">© 2023 WhatsApp Services. All rights reserved.</p>
     </footer>
@@ -432,9 +583,6 @@
                     tabs.forEach(t => t.classList.remove('active'));
                     // Add active class to clicked tab
                     this.classList.add('active');
-                    
-                    // In a real implementation, you would filter the proof items here
-                    // For this example, we'll just show all items
                 });
             });
             
