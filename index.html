@@ -511,22 +511,83 @@
   }
 </script>
 
-        <!-- Reacts Plans -->
-        <div class="subsection">
-            <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
-            <div class="subsection-content">
-                <h3 class="subsection-title">Reacts</h3>
-                <div class="subsection-price">Rs 200 - Rs 600</div>
-                <ul class="subsection-features">
-                    <li>1 Week Reacts - Rs 200</li>
-                    <li>2 Week Reacts - Rs 350</li>
-                    <li>1 Month Reacts - Rs 600</li>
-                    <li>High engagement</li>
-                </ul>
-                <a href="https://wa.me/728899640?text=Order%20Reacts%20please%20send%20details:-" class="buy-button">Buy Now</a>
-            </div>
-        </div>
+        
+<!-- Reacts Plans -->
+<div class="subsection">
+  <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+  <div class="subsection-content">
+    <h3 class="subsection-title">Reacts</h3>
+    <div class="subsection-price">Rs 200 - Rs 600</div>
+    <ul class="subsection-features">
+      <li>1 Week Reacts - Rs 200</li>
+      <li>2 Week Reacts - Rs 350</li>
+      <li>1 Month Reacts - Rs 600</li>
+      <li>High engagement</li>
+    </ul>
 
+    <div class="select-buy">
+      <select id="reactsSelect" class="custom-select">
+        <option value="">Select Plan</option>
+        <option value="1 Week Reacts - Rs 200">1 Week - Rs 200</option>
+        <option value="2 Week Reacts - Rs 350">2 Week - Rs 350</option>
+        <option value="1 Month Reacts - Rs 600">1 Month - Rs 600</option>
+      </select>
+      <button class="buy-button" onclick="buyReacts()">Buy</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function buyReacts() {
+    const plan = document.getElementById("reactsSelect").value;
+    if (!plan) {
+      alert("Please select a plan first!");
+      return;
+    }
+    const phone = "728899640"; // <-- change if needed
+    const url = `https://wa.me/${phone}?text=I%20want%20to%20buy%20${encodeURIComponent(plan)}`;
+    window.open(url, "_blank");
+  }
+</script>
+
+<style>
+  .select-buy {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .custom-select {
+    padding: 10px 15px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 2px solid #4CAF50;
+    outline: none;
+    cursor: pointer;
+    flex: 1;
+    transition: 0.3s;
+  }
+
+  .custom-select:hover {
+    border-color: #2e7d32;
+    background: #f9fff9;
+  }
+
+  .buy-button {
+    background-color: #25D366;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .buy-button:hover {
+    background-color: #1ebd5a;
+  }
+</style>
         <!-- Combo Plan -->
         <div class="subsection">
             <div class="subsection-image" style="background-image: url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
