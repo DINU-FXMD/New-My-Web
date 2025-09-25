@@ -6,6 +6,132 @@
     <title>WhatsApp Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Loading Animation */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050505;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .loader-inner {
+            position: absolute;
+            border: 4px solid #25D366;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        .loader-inner:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            animation-delay: 0s;
+        }
+        
+        .loader-inner:nth-child(2) {
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+            animation-delay: 0.2s;
+        }
+        
+        .loader-inner:nth-child(3) {
+            width: 40%;
+            height: 40%;
+            top: 30%;
+            left: 30%;
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.7;
+            }
+        }
+        
+        .loading-text {
+            color: #25D366;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .loading-dots {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 20px;
+        }
+        
+        .loading-dots span {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #25D366;
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+        
+        .loading-dots span:nth-child(1) {
+            left: 8px;
+            animation: loading-dots1 0.6s infinite;
+        }
+        
+        .loading-dots span:nth-child(2) {
+            left: 8px;
+            animation: loading-dots2 0.6s infinite;
+        }
+        
+        .loading-dots span:nth-child(3) {
+            left: 32px;
+            animation: loading-dots2 0.6s infinite;
+        }
+        
+        .loading-dots span:nth-child(4) {
+            left: 56px;
+            animation: loading-dots3 0.6s infinite;
+        }
+        
+        @keyframes loading-dots1 {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes loading-dots3 {
+            0% { transform: scale(1); }
+            100% { transform: scale(0); }
+        }
+        
+        @keyframes loading-dots2 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(24px, 0); }
+        }
+        
         /* Base Styles */
         * {
             margin: 0;
@@ -27,6 +153,12 @@
             background-color: var(--darker);
             color: var(--light);
             overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+        
+        body.loaded {
+            opacity: 1;
         }
         
         /* Header */
@@ -38,6 +170,12 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            transform: translateY(-100%);
+            transition: transform 0.5s ease-out;
+        }
+        
+        header.visible {
+            transform: translateY(0);
         }
         
         nav {
@@ -89,6 +227,14 @@
             padding: 0 2rem;
             background: linear-gradient(rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.9)), 
                         url('https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .hero.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .hero h1 {
@@ -116,11 +262,21 @@
             font-weight: bold;
             transition: all 0.3s;
             border: 2px solid var(--primary);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 0.5s forwards;
         }
         
         .cta-button:hover {
             background-color: transparent;
             color: var(--primary);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* Main Sections */
@@ -130,6 +286,14 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .main-section.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .section-title {
@@ -174,6 +338,21 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s;
+            opacity: 0;
+            transform: translateX(50px);
+            animation: fadeInRight 0.8s ease forwards;
+        }
+        
+        .subsection:nth-child(1) { animation-delay: 0.2s; }
+        .subsection:nth-child(2) { animation-delay: 0.4s; }
+        .subsection:nth-child(3) { animation-delay: 0.6s; }
+        .subsection:nth-child(4) { animation-delay: 0.8s; }
+        
+        @keyframes fadeInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
         .subsection:hover {
@@ -250,10 +429,65 @@
             background-color: rgba(37, 211, 102, 0.08);
         }
         
+        /* Select Box Styling */
+        .subsection-select {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1.1rem;
+            border: 2px solid #25d366;
+            border-radius: 8px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 8px 0 16px 0;
+        }
+        
+        .subsection-select:focus {
+            outline: none;
+            border-color: #128c7e;
+            box-shadow: 0 0 8px rgba(18,140,126,0.4);
+            background-color: #fff;
+        }
+        
+        .subsection-select option {
+            padding: 10px;
+            font-size: 1rem;
+        }
+        
+        .select-buy {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .custom-select {
+            padding: 10px 15px;
+            font-size: 15px;
+            border-radius: 10px;
+            border: 2px solid #4CAF50;
+            outline: none;
+            cursor: pointer;
+            flex: 1;
+            transition: 0.3s;
+        }
+        
+        .custom-select:hover {
+            border-color: #2e7d32;
+            background: #f9fff9;
+        }
+        
         /* Proof Section */
         .proof {
             padding: 5rem 2rem;
             background-color: var(--dark);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .proof.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .proof-tabs {
@@ -294,6 +528,23 @@
             border-radius: 5px;
             cursor: pointer;
             transition: transform 0.3s;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: zoomIn 0.8s ease forwards;
+        }
+        
+        .proof-item:nth-child(1) { animation-delay: 0.1s; }
+        .proof-item:nth-child(2) { animation-delay: 0.2s; }
+        .proof-item:nth-child(3) { animation-delay: 0.3s; }
+        .proof-item:nth-child(4) { animation-delay: 0.4s; }
+        .proof-item:nth-child(5) { animation-delay: 0.5s; }
+        .proof-item:nth-child(6) { animation-delay: 0.6s; }
+        
+        @keyframes zoomIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         
         .proof-item:hover {
@@ -306,6 +557,14 @@
             padding: 3rem 2rem;
             text-align: center;
             border-top: 1px solid var(--gray);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        footer.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .footer-links {
@@ -351,6 +610,24 @@
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="loader-inner"></div>
+            <div class="loader-inner"></div>
+            <div class="loader-inner"></div>
+        </div>
+        <div class="loading-text">
+            WhatsApp Services
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <nav>
@@ -374,292 +651,196 @@
     </section>
 
     <!-- WhatsApp Bot Service Section -->
-    <!-- WhatsApp Bot Service Section -->
-<section id="bot-service" class="main-section">
-    <h2 class="section-title">WhatsApp Bot Service</h2>
-    <div class="subsections-container">
-        <!-- 2 Week Plan -->
-        <div class="subsection">
-            <div class="subsection-image" style="background-image: url('https://files.catbox.moe/i0b9ej.jpg');"></div>
-            <div class="subsection-content">
-                <h3 class="subsection-title">2 Week Plan</h3>
-                <div class="subsection-price">Rs 100</div>
-                <ul class="subsection-features">
-                    <li>14 days of service</li>
-                    <li>Basic bot features</li>
-                    <li>24/7 support</li>
-                    <li>Easy setup</li>
-                    <li>Film Site 21+</li>
-                </ul>
-                <a href="https://wa.me/728899640?text=2%20Week%20WhatsApp%20Bot%20want%20please%20send%20me%20details:-" class="buy-button">Buy Now</a>
+    <section id="bot-service" class="main-section">
+        <h2 class="section-title">WhatsApp Bot Service</h2>
+        <div class="subsections-container">
+            <!-- 2 Week Plan -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://files.catbox.moe/i0b9ej.jpg');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">2 Week Plan</h3>
+                    <div class="subsection-price">Rs 100</div>
+                    <ul class="subsection-features">
+                        <li>14 days of service</li>
+                        <li>Basic bot features</li>
+                        <li>24/7 support</li>
+                        <li>Easy setup</li>
+                        <li>Film Site 21+</li>
+                    </ul>
+                    <a href="https://wa.me/728899640?text=2%20Week%20WhatsApp%20Bot%20want%20please%20send%20me%20details:-" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+
+            <!-- 1 Month Plan -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://files.catbox.moe/i0b9ej.jpg');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">1 Month Plan</h3>
+                    <div class="subsection-price">Rs 200</div>
+                    <ul class="subsection-features">
+                        <li>30 days of service</li>
+                        <li>Advanced bot features</li>
+                        <li>Priority support</li>
+                        <li>Film Site 21+</li>
+                    </ul>
+                    <a href="https://wa.me/728899640?text=1%20Month%20WhatsApp%20Bot%20want%20please%20send%20me%20details:-" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+
+            <!-- Premium Plan -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://files.catbox.moe/i0b9ej.jpg');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">Premium Plan</h3>
+                    <div class="subsection-price">Advance Rs 500</div>
+                    <ul class="subsection-features">
+                        <li>You Can Develop Bot</li>
+                        <li>Fully Customizable</li>
+                        <li>24/7 priority support</li>
+                        <li>Button Or Nonbutton</li>
+                        <li>ඔයා කැමති විදිහකට ඔයාගෙ ඕනි අවශ්‍යතාවයකට බොට් හදාගන්න පුළුවන්</li>
+                        <li>Check Now</li>
+                    </ul>
+                    <a href="https://wa.me/728899640?text=Premium%20WhatsApp%20Bot%20want%20please%20send%20me%20details:-" class="buy-button">Buy Now</a>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- 1 Month Plan -->
-        <div class="subsection">
-            <div class="subsection-image" style="background-image: url('https://files.catbox.moe/i0b9ej.jpg');"></div>
-            <div class="subsection-content">
-                <h3 class="subsection-title">1 Month Plan</h3>
-                <div class="subsection-price">Rs 200</div>
-                <ul class="subsection-features">
-                    <li>30 days of service</li>
-                    <li>Advanced bot features</li>
-                    <li>Priority support</li>
-                    <li>Film Site 21+</li>
-                </ul>
-                <a href="https://wa.me/728899640?text=1%20Month%20WhatsApp%20Bot%20want%20please%20send%20me%20details:-" class="buy-button">Buy Now</a>
+    <!-- WhatsApp Channel Boost Section -->
+    <section id="channel-boost" class="main-section">
+        <h2 class="section-title">WhatsApp Channel Boost Service</h2>
+        <div class="subsections-container">
+            <!-- Followers Plans -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://files.catbox.moe/eyl7i4.jpg');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">Followers</h3>
+                    <div class="subsection-price">Rs 350 - Rs 600</div>
+                    <ul class="subsection-features">
+                        <li>1K Followers - Rs 350</li>
+                        <li>2K Followers - Rs 600</li>
+                        <li>Real, active users</li>
+                        <li>Gradual delivery</li>
+                    </ul>
+
+                    <!-- Select box -->
+                    <label for="followersSelect">Select Package:</label>
+                    <select id="followersSelect" class="subsection-select">
+                        <option value="1K Followers - Rs 350">1K Followers ✔️</option>
+                        <option value="2K Followers - Rs 600">2K Followers ✔️</option>
+                    </select>
+
+                    <!-- Buy Button -->
+                    <a id="followersBuyBtn" href="#" target="_blank" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Reacts Plans -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://files.catbox.moe/eyl7i4.jpg');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">Reacts</h3>
+                    <div class="subsection-price">Rs 200 - Rs 600</div>
+                    <ul class="subsection-features">
+                        <li>1 Week Reacts - Rs 200</li>
+                        <li>2 Week Reacts - Rs 350</li>
+                        <li>1 Month Reacts - Rs 600</li>
+                        <li>High engagement</li>
+                    </ul>
+
+                    <div class="select-buy">
+                        <select id="reactsSelect" class="custom-select">
+                            <option value="">Select Plan</option>
+                            <option value="1 Week Reacts - Rs 200">1 Week - Rs 200</option>
+                            <option value="2 Week Reacts - Rs 350">2 Week - Rs 350</option>
+                            <option value="1 Month Reacts - Rs 600">1 Month - Rs 600</option>
+                        </select>
+                        <button class="buy-button" onclick="buyReacts()">Buy</button>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Premium Plan -->
-        <div class="subsection">
-            <div class="subsection-image" style="background-image: url('https://files.catbox.moe/i0b9ej.jpg');"></div>
-            <div class="subsection-content">
-                <h3 class="subsection-title">Premium Plan</h3>
-                <div class="subsection-price">Advance Rs 500</div>
-                <ul class="subsection-features">
-                    <li>You Can Develop Bot</li>
-                    <li>Fully Customizable</li>
-                    <li>24/7 priority support</li>
-                    <li>Button Or Nonbutton</li>
-                    <li>ඔයා කැමති විදිහකට ඔයාගෙ ඕනි අවශ්‍යතාවයකට බොට් හදාගන්න පුළුවන්</li>
-                    <li>Check Now</li>
-                </ul>
-                <a href="https://wa.me/728899640?text=Premium%20WhatsApp%20Bot%20want%20please%20send%20me%20details:-" class="buy-button">Buy Now</a>
+    <!-- WhatsApp Channel Paid Promotions Section -->
+    <section id="paid-promotions" class="main-section">
+        <h2 class="section-title">WhatsApp Channel Paid Promotions</h2>
+        <div class="subsections-container">
+            <!-- 1 Hour Promotion -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://files.catbox.moe/bc8gwq.jpg');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">1 Hour Promotion</h3>
+                    <div class="subsection-price">Rs 300</div>
+                    <ul class="subsection-features">
+                        <li>1 hour of promotion</li>
+                        <li>Targeted audience</li>
+                        <li>High visibility</li>
+                        <li>Quick results</li>
+                    </ul>
+                    <a href="https://wa.me/728899640?text=1%20Hour%20Promotion%20please%20send%20details:-" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+
+            <!-- 2 Hour Promotion -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://files.catbox.moe/bc8gwq.jpg');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">2 Hour Promotion</h3>
+                    <div class="subsection-price">Rs 500</div>
+                    <ul class="subsection-features">
+                        <li>2 hours of promotion</li>
+                        <li>Extended reach</li>
+                        <li>Better engagement</li>
+                        <li>Value package</li>
+                    </ul>
+                    <a href="https://wa.me/728899640?text=2%20Hour%20Promotion%20please%20send%20details:-" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+
+            <!-- 3 Hour Promotion -->
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://files.catbox.moe/bc8gwq.jpg');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">3 Hour Promotion</h3>
+                    <div class="subsection-price">Rs 800</div>
+                    <ul class="subsection-features">
+                        <li>3 hours of promotion</li>
+                        <li>1 hour free (bonus)</li>
+                        <li>Maximum exposure</li>
+                        <li>Best results</li>
+                    </ul>
+                    <a href="https://wa.me/728899640?text=3%20Hour%20Promotion%20please%20send%20details:-" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="subsection-image" style="background-image: url('https://files.catbox.moe/nfk6id.jpg');"></div>
+                <div class="subsection-content">
+                    <h3 class="subsection-title">Whatsapp Channel Avaible</h3>
+                    <div class="subsection-price">Rs 100+</div>
+                    <ul class="subsection-features">
+                        <li>Active Channel Avaible</li>
+                        <li>Extended reach</li>
+                        <li>Best Price</li>
+                        <li>Value package</li>
+                    </ul>
+                    <a href="https://wa.me/728899640?text=I+want+Buy+Channel+please%20send%20details:-" class="buy-button">Buy Now</a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- WhatsApp Channel Boost Section (adjusted to match above structure) -->
-<section id="channel-boost" class="main-section">
-    <h2 class="section-title">WhatsApp Channel Boost Service</h2>
-    <div class="subsections-container">
-        <!-- Followers Plans -->
-        <!-- Followers Plans -->
-<div class="subsection">
-  <div class="subsection-image" style="background-image: url('https://files.catbox.moe/eyl7i4.jpg');"></div>
-  <div class="subsection-content">
-    <h3 class="subsection-title">Followers</h3>
-    <div class="subsection-price">Rs 350 - Rs 600</div>
-    <ul class="subsection-features">
-      <li>1K Followers - Rs 350</li>
-      <li>2K Followers - Rs 600</li>
-      <li>Real, active users</li>
-      <li>Gradual delivery</li>
-    </ul>
-
-    <!-- Select box -->
-    <label for="followersSelect">Select Package:</label>
-    <select id="followersSelect" class="subsection-select">
-      <option value="1K Followers - Rs 350">1K Followers ✔️</option>
-      <option value="2K Followers - Rs 600">2K Followers ✔️</option>
-    </select>
-
-    <!-- Buy Button -->
-    <a id="followersBuyBtn" href="#" target="_blank" class="buy-button">Buy Now</a>
-  </div>
-</div>
-
-<style>
-  /* Select Box Styling */
-  .subsection-select {
-    width: 100%;                 /* full width */
-    padding: 12px 14px;          /* bigger padding */
-    font-size: 1.1rem;           /* larger font */
-    border: 2px solid #25d366;   /* WhatsApp green border */
-    border-radius: 8px;          /* rounded edges */
-    background-color: #f8f8f8;   /* light background */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin: 8px 0 16px 0;        /* spacing around */
-  }
-
-  /* Highlight on focus */
-  .subsection-select:focus {
-    outline: none;
-    border-color: #128c7e;       /* darker green focus */
-    box-shadow: 0 0 8px rgba(18,140,126,0.4);
-    background-color: #fff;
-  }
-
-  /* Make options a bit larger too */
-  .subsection-select option {
-    padding: 10px;
-    font-size: 1rem;
-  }
-</style>
-
-<script>
-  const select = document.getElementById("followersSelect");
-  const buyBtn = document.getElementById("followersBuyBtn");
-
-  updateLink();
-  select.addEventListener("change", updateLink);
-
-  function updateLink() {
-    const selected = select.value;
-    let message = "";
-
-    if (selected.includes("1K")) {
-      message = "Order 1K Followers please send details:-";
-    } else if (selected.includes("2K")) {
-      message = "Order 2K Followers please send details:-";
-    }
-
-    buyBtn.href = "https://wa.me/728899640?text=" + encodeURIComponent(message);
-  }
-</script>
-
+    <!-- Proof Section -->
+    <section id="proof" class="proof">
+        <h2 class="section-title">Proof of Work</h2>
         
-<!-- Reacts Plans -->
-<div class="subsection">
-  <div class="subsection-image" style="background-image: url('https://files.catbox.moe/eyl7i4.jpg');"></div>
-  <div class="subsection-content">
-    <h3 class="subsection-title">Reacts</h3>
-    <div class="subsection-price">Rs 200 - Rs 600</div>
-    <ul class="subsection-features">
-      <li>1 Week Reacts - Rs 200</li>
-      <li>2 Week Reacts - Rs 350</li>
-      <li>1 Month Reacts - Rs 600</li>
-      <li>High engagement</li>
-    </ul>
-
-    <div class="select-buy">
-      <select id="reactsSelect" class="custom-select">
-        <option value="">Select Plan</option>
-        <option value="1 Week Reacts - Rs 200">1 Week - Rs 200</option>
-        <option value="2 Week Reacts - Rs 350">2 Week - Rs 350</option>
-        <option value="1 Month Reacts - Rs 600">1 Month - Rs 600</option>
-      </select>
-      <button class="buy-button" onclick="buyReacts()">Buy</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  function buyReacts() {
-    const plan = document.getElementById("reactsSelect").value;
-    if (!plan) {
-      alert("Please select a plan first!");
-      return;
-    }
-    const phone = "728899640"; // <-- change if needed
-    const url = `https://wa.me/${phone}?text=I%20want%20to%20buy%20${encodeURIComponent(plan)}`;
-    window.open(url, "_blank");
-  }
-</script>
-
-<style>
-  .select-buy {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-  }
-
-  .custom-select {
-    padding: 10px 15px;
-    font-size: 15px;
-    border-radius: 10px;
-    border: 2px solid #4CAF50;
-    outline: none;
-    cursor: pointer;
-    flex: 1;
-    transition: 0.3s;
-  }
-
-  .custom-select:hover {
-    border-color: #2e7d32;
-    background: #f9fff9;
-  }
-
-  .buy-button {
-    background-color: #25D366;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .buy-button:hover {
-    background-color: #1ebd5a;
-  }
-</style>
-        
-    </div>
-</section>
-
-<!-- WhatsApp Channel Paid Promotions Section (adjusted to match above structure) -->
-<section id="paid-promotions" class="main-section">
-    <h2 class="section-title">WhatsApp Channel Paid Promotions</h2>
-    <div class="subsections-container">
-        <!-- 1 Hour Promotion -->
-        <div class="subsection">
-            <div class="subsection-image" style="background-image: url('https://files.catbox.moe/bc8gwq.jpg');"></div>
-            <div class="subsection-content">
-                <h3 class="subsection-title">1 Hour Promotion</h3>
-                <div class="subsection-price">Rs 300</div>
-                <ul class="subsection-features">
-                    <li>1 hour of promotion</li>
-                    <li>Targeted audience</li>
-                    <li>High visibility</li>
-                    <li>Quick results</li>
-                </ul>
-                <a href="https://wa.me/728899640?text=1%20Hour%20Promotion%20please%20send%20details:-" class="buy-button">Buy Now</a>
-            </div>
+        <div class="proof-tabs">
+            <div class="proof-tab active">Bot Service</div>
+            <div class="proof-tab">Channel Boost</div>
+            <div class="proof-tab">Promotions</div>
         </div>
-
-        <!-- 2 Hour Promotion -->
-        <div class="subsection">
-            <div class="subsection-image" style="background-image: url('https://files.catbox.moe/bc8gwq.jpg');"></div>
-            <div class="subsection-content">
-                <h3 class="subsection-title">2 Hour Promotion</h3>
-                <div class="subsection-price">Rs 500</div>
-                <ul class="subsection-features">
-                    <li>2 hours of promotion</li>
-                    <li>Extended reach</li>
-                    <li>Better engagement</li>
-                    <li>Value package</li>
-                </ul>
-                <a href="https://wa.me/728899640?text=2%20Hour%20Promotion%20please%20send%20details:-" class="buy-button">Buy Now</a>
-            </div>
-        </div>
-
-        <!-- 3 Hour Promotion -->
-        <div class="subsection">
-            <div class="subsection-image" style="background-image: url('https://files.catbox.moe/bc8gwq.jpg');"></div>
-            <div class="subsection-content">
-                <h3 class="subsection-title">3 Hour Promotion</h3>
-                <div class="subsection-price">Rs 800</div>
-                <ul class="subsection-features">
-                    <li>3 hours of promotion</li>
-                    <li>1 hour free (bonus)</li>
-                    <li>Maximum exposure</li>
-                    <li>Best results</li>
-                </ul>
-                <a href="https://wa.me/728899640?text=3%20Hour%20Promotion%20please%20send%20details:-" class="buy-button">Buy Now</a>
-            </div>
-        </div>
-
-        <div class="subsection">
-            <div class="subsection-image" style="background-image: url('https://files.catbox.moe/nfk6id.jpg');"></div>
-            <div class="subsection-content">
-                <h3 class="subsection-title">Whatsapp Channel Avaible</h3>
-                <div class="subsection-price">Rs 100+</div>
-                <ul class="subsection-features">
-                    <li>Active Channel Avaible</li>
-                    <li>Extended reach</li>
-                    <li>Best Price</li>
-                    <li>Value package</li>
-                </ul>
-                <a href="https://wa.me/728899640?text=I+want+Buy+Channel+please%20send%20details:-" class="buy-button">Buy Now</a>
-            </div>
-        </div>
-    </div>
-</section>
         
         <div class="proof-content">
             <div class="proof-grid">
@@ -685,6 +866,25 @@
     </footer>
 
     <script>
+        // Loading Animation
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('loading-screen').style.display = 'none';
+                    document.body.classList.add('loaded');
+                    
+                    // Animate header
+                    document.querySelector('header').classList.add('visible');
+                    
+                    // Animate sections
+                    document.querySelectorAll('.hero, .main-section, .proof, footer').forEach(section => {
+                        section.classList.add('animate');
+                    });
+                }, 500);
+            }, 2000); // Show loading screen for 2 seconds
+        });
+
         // Simple tab functionality for proof section
         document.addEventListener('DOMContentLoaded', function() {
             const tabs = document.querySelectorAll('.proof-tab');
@@ -724,6 +924,38 @@
                     }
                 });
             });
+            
+            // Followers select functionality
+            const select = document.getElementById("followersSelect");
+            const buyBtn = document.getElementById("followersBuyBtn");
+
+            updateLink();
+            select.addEventListener("change", updateLink);
+
+            function updateLink() {
+                const selected = select.value;
+                let message = "";
+
+                if (selected.includes("1K")) {
+                    message = "Order 1K Followers please send details:-";
+                } else if (selected.includes("2K")) {
+                    message = "Order 2K Followers please send details:-";
+                }
+
+                buyBtn.href = "https://wa.me/728899640?text=" + encodeURIComponent(message);
+            }
+            
+            // Reacts select functionality
+            function buyReacts() {
+                const plan = document.getElementById("reactsSelect").value;
+                if (!plan) {
+                    alert("Please select a plan first!");
+                    return;
+                }
+                const phone = "728899640";
+                const url = `https://wa.me/${phone}?text=I%20want%20to%20buy%20${encodeURIComponent(plan)}`;
+                window.open(url, "_blank");
+            }
         });
     </script>
 </body>
