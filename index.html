@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Services</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #25D366;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --light: #f0f0f0;
+            --gray: #333;
+            --light-gray: #777;
+        }
+        
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--dark);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            background: linear-gradient(rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.9)), 
+                        url('https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), #128C7E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            color: var(--light-gray);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--dark);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 5rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background-color: var(--dark);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .service-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-features li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-features li:before {
+            content: "✓";
+            color: var(--primary);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .buy-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: var(--primary);
+            color: var(--dark);
+            padding: 0.8rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .buy-button:hover {
+            background-color: #128C7E;
+        }
+        
+        /* Proof Section */
+        .proof {
+            padding: 5rem 2rem;
+            background-color: var(--dark);
+        }
+        
+        .proof-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .proof-tab {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--gray);
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .proof-tab.active {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        
+        .proof-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .proof-item {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .proof-item:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--gray);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i>⚡</i> WhatsApp Services
+            </div>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#proof">Proof</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Professional WhatsApp Services</h1>
+        <p>Boost your WhatsApp presence with our premium services. From bots to channel promotions, we've got you covered.</p>
+        <a href="#services" class="cta-button">Explore Services</a>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <h2 class="section-title">Our Services</h2>
+        
+        <div class="services-grid">
+            <!-- WhatsApp Bot Service -->
+            <div class="service-card">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="service-content">
+                    <h3 class="service-title">WhatsApp Bot Service</h3>
+                    <div class="service-price">Rs 100 - Rs 200</div>
+                    <ul class="service-features">
+                        <li>2 Weeks - Rs 100</li>
+                        <li>1 Month - Rs 200</li>
+                        <li>Easy setup</li>
+                        <li>24/7 support</li>
+                    </ul>
+                    <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- WhatsApp Channel Boost Service -->
+            <div class="service-card">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="service-content">
+                    <h3 class="service-title">WhatsApp Channel Boost</h3>
+                    <div class="service-price">Rs 350 - Rs 600</div>
+                    <ul class="service-features">
+                        <li>1K Followers - Rs 350</li>
+                        <li>2K Followers - Rs 600</li>
+                        <li>1 Week Reacts - Rs 200</li>
+                        <li>1 Month Reacts - Rs 600</li>
+                    </ul>
+                    <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- WhatsApp Channel Paid Promotions -->
+            <div class="service-card">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="service-content">
+                    <h3 class="service-title">Channel Paid Promotions</h3>
+                    <div class="service-price">Rs 300 - Rs 800</div>
+                    <ul class="service-features">
+                        <li>1 Hour - Rs 300</li>
+                        <li>2 Hours - Rs 500</li>
+                        <li>3 Hours - Rs 800</li>
+                        <li>Targeted audience</li>
+                    </ul>
+                    <a href="https://wa.me/728899640" class="buy-button">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Section -->
+    <section id="proof" class="proof">
+        <h2 class="section-title">Proof of Work</h2>
+        
+        <div class="proof-tabs">
+            <div class="proof-tab active">Bot Service</div>
+            <div class="proof-tab">Channel Boost</div>
+            <div class="proof-tab">Promotions</div>
+        </div>
+        
+        <div class="proof-content">
+            <div class="proof-grid">
+                <div class="proof-item" style="background-image: url('https://via.placeholder.com/300x200/25D366/000000?text=Bot+Proof+1');"></div>
+                <div class="proof-item" style="background-image: url('https://via.placeholder.com/300x200/128C7E/ffffff?text=Bot+Proof+2');"></div>
+                <div class="proof-item" style="background-image: url('https://via.placeholder.com/300x200/25D366/000000?text=Boost+Proof+1');"></div>
+                <div class="proof-item" style="background-image: url('https://via.placeholder.com/300x200/128C7E/ffffff?text=Boost+Proof+2');"></div>
+                <div class="proof-item" style="background-image: url('https://via.placeholder.com/300x200/25D366/000000?text=Promo+Proof+1');"></div>
+                <div class="proof-item" style="background-image: url('https://via.placeholder.com/300x200/128C7E/ffffff?text=Promo+Proof+2');"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <ul class="footer-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#proof">Proof</a></li>
+            <li><a href="https://wa.me/728899640">Contact</a></li>
+        </ul>
+        <p class="copyright">© 2023 WhatsApp Services. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simple tab functionality for proof section
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.proof-tab');
+            const proofItems = document.querySelectorAll('.proof-item');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // In a real implementation, you would filter the proof items here
+                    // For this example, we'll just show all items
+                });
+            });
+            
+            // Add click effect to proof items
+            proofItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // In a real implementation, this would open a modal with the full image
+                    alert('Proof image clicked. In a real implementation, this would open a larger view.');
+                });
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
