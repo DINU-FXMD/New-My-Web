@@ -6,130 +6,144 @@
     <title>WhatsApp Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Loading Animation */
+        /* Rainbow Loading Animation */
         #loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #050505;
+            background: linear-gradient(135deg, #0a0a0a, #050505);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease-out;
+            transition: opacity 0.8s ease-out;
         }
         
-        .loader {
-            width: 80px;
-            height: 80px;
+        .rainbow-loader {
+            width: 200px;
+            height: 200px;
             position: relative;
             margin-bottom: 30px;
         }
         
-        .loader-inner {
+        .rainbow-circle {
             position: absolute;
-            border: 4px solid #25D366;
-            border-radius: 50%;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        
-        .loader-inner:nth-child(1) {
             width: 100%;
             height: 100%;
-            animation-delay: 0s;
+            border-radius: 50%;
+            border: 8px solid transparent;
+            border-top: 8px solid;
+            animation: spin 2s linear infinite;
         }
         
-        .loader-inner:nth-child(2) {
+        .rainbow-circle:nth-child(1) {
+            border-top-color: #FF0000;
+            animation-delay: 0s;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .rainbow-circle:nth-child(2) {
+            border-top-color: #FF7F00;
+            animation-delay: 0.1s;
+            width: 85%;
+            height: 85%;
+            top: 7.5%;
+            left: 7.5%;
+        }
+        
+        .rainbow-circle:nth-child(3) {
+            border-top-color: #FFFF00;
+            animation-delay: 0.2s;
             width: 70%;
             height: 70%;
             top: 15%;
             left: 15%;
-            animation-delay: 0.2s;
         }
         
-        .loader-inner:nth-child(3) {
+        .rainbow-circle:nth-child(4) {
+            border-top-color: #00FF00;
+            animation-delay: 0.3s;
+            width: 55%;
+            height: 55%;
+            top: 22.5%;
+            left: 22.5%;
+        }
+        
+        .rainbow-circle:nth-child(5) {
+            border-top-color: #0000FF;
+            animation-delay: 0.4s;
             width: 40%;
             height: 40%;
             top: 30%;
             left: 30%;
-            animation-delay: 0.4s;
         }
         
-        @keyframes pulse {
-            0% {
-                transform: scale(0.8);
-                opacity: 0.7;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.3;
-            }
-            100% {
-                transform: scale(0.8);
-                opacity: 0.7;
-            }
+        .rainbow-circle:nth-child(6) {
+            border-top-color: #4B0082;
+            animation-delay: 0.5s;
+            width: 25%;
+            height: 25%;
+            top: 37.5%;
+            left: 37.5%;
+        }
+        
+        .rainbow-circle:nth-child(7) {
+            border-top-color: #9400D3;
+            animation-delay: 0.6s;
+            width: 10%;
+            height: 10%;
+            top: 45%;
+            left: 45%;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .loading-text {
             color: #25D366;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             text-align: center;
             margin-top: 20px;
+            text-shadow: 0 0 10px rgba(37, 211, 102, 0.5);
         }
         
-        .loading-dots {
-            display: inline-block;
-            position: relative;
-            width: 80px;
-            height: 20px;
+        .percentage {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            background: linear-gradient(45deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 3s infinite;
         }
         
-        .loading-dots span {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #25D366;
-            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
         }
         
-        .loading-dots span:nth-child(1) {
-            left: 8px;
-            animation: loading-dots1 0.6s infinite;
+        .progress-bar {
+            width: 300px;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 20px;
         }
         
-        .loading-dots span:nth-child(2) {
-            left: 8px;
-            animation: loading-dots2 0.6s infinite;
-        }
-        
-        .loading-dots span:nth-child(3) {
-            left: 32px;
-            animation: loading-dots2 0.6s infinite;
-        }
-        
-        .loading-dots span:nth-child(4) {
-            left: 56px;
-            animation: loading-dots3 0.6s infinite;
-        }
-        
-        @keyframes loading-dots1 {
-            0% { transform: scale(0); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes loading-dots3 {
-            0% { transform: scale(1); }
-            100% { transform: scale(0); }
-        }
-        
-        @keyframes loading-dots2 {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(24px, 0); }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 5px;
         }
         
         /* Base Styles */
@@ -154,14 +168,14 @@
             color: var(--light);
             overflow-x: hidden;
             opacity: 0;
-            transition: opacity 0.5s ease-in;
+            transition: opacity 0.8s ease-in;
         }
         
         body.loaded {
             opacity: 1;
         }
         
-        /* Header */
+        /* Header with Animation */
         header {
             background-color: var(--dark);
             padding: 1rem 2rem;
@@ -171,7 +185,7 @@
             z-index: 100;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
             transform: translateY(-100%);
-            transition: transform 0.5s ease-out;
+            transition: transform 0.8s ease-out;
         }
         
         header.visible {
@@ -194,6 +208,13 @@
         
         .logo i {
             margin-right: 10px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
         
         .nav-links {
@@ -209,14 +230,30 @@
             color: var(--light);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            position: relative;
         }
         
         .nav-links a:hover {
             color: var(--primary);
         }
         
-        /* Hero Section */
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        /* Hero Section with Animation */
         .hero {
             height: 100vh;
             display: flex;
@@ -243,6 +280,12 @@
             background: linear-gradient(to right, var(--primary), #128C7E);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: textGlow 3s infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(37, 211, 102, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(37, 211, 102, 0.8), 0 0 30px rgba(37, 211, 102, 0.6); }
         }
         
         .hero p {
@@ -250,6 +293,9 @@
             max-width: 700px;
             margin-bottom: 2rem;
             color: var(--light-gray);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.5s forwards;
         }
         
         .cta-button {
@@ -264,12 +310,31 @@
             border: 2px solid var(--primary);
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 0.8s ease 0.5s forwards;
+            animation: fadeInUp 0.8s ease 1s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover:before {
+            left: 100%;
         }
         
         .cta-button:hover {
             background-color: transparent;
             color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         
         @keyframes fadeInUp {
@@ -279,7 +344,7 @@
             }
         }
         
-        /* Main Sections */
+        /* Main Sections with Animation */
         .main-section {
             padding: 5rem 0;
             min-height: 100vh;
@@ -301,9 +366,21 @@
             margin-bottom: 3rem;
             font-size: 2.5rem;
             padding: 0 2rem;
+            position: relative;
         }
         
-        /* Horizontal Scrolling Subsections */
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Horizontal Scrolling Subsections with Animation */
         .subsections-container {
             overflow-x: auto;
             overflow-y: hidden;
@@ -337,7 +414,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s;
+            transition: all 0.3s;
             opacity: 0;
             transform: translateX(50px);
             animation: fadeInRight 0.8s ease forwards;
@@ -356,13 +433,19 @@
         }
         
         .subsection:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
         
         .subsection-image {
             height: 200px;
             background-size: cover;
             background-position: center;
+            transition: transform 0.5s;
+        }
+        
+        .subsection:hover .subsection-image {
+            transform: scale(1.1);
         }
         
         .subsection-content {
@@ -379,6 +462,7 @@
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 1rem;
+            color: #FFD700;
         }
         
         .subsection-features {
@@ -390,6 +474,18 @@
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
+            opacity: 0;
+            animation: fadeInList 0.5s ease forwards;
+        }
+        
+        .subsection-features li:nth-child(1) { animation-delay: 0.3s; }
+        .subsection-features li:nth-child(2) { animation-delay: 0.4s; }
+        .subsection-features li:nth-child(3) { animation-delay: 0.5s; }
+        .subsection-features li:nth-child(4) { animation-delay: 0.6s; }
+        .subsection-features li:nth-child(5) { animation-delay: 0.7s; }
+        
+        @keyframes fadeInList {
+            to { opacity: 1; }
         }
         
         .subsection-features li:before {
@@ -409,11 +505,30 @@
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .buy-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .buy-button:hover:before {
+            left: 100%;
         }
         
         .buy-button:hover {
             background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
         /* Section Colors */
@@ -476,7 +591,7 @@
             background: #f9fff9;
         }
         
-        /* Proof Section */
+        /* Proof Section with Animation */
         .proof {
             padding: 5rem 2rem;
             background-color: var(--dark);
@@ -502,12 +617,14 @@
             margin: 0 0.5rem;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
         
         .proof-tab.active {
             background-color: var(--primary);
             color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
         }
         
         .proof-content {
@@ -527,7 +644,7 @@
             background-position: center;
             border-radius: 5px;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s;
             opacity: 0;
             transform: scale(0.8);
             animation: zoomIn 0.8s ease forwards;
@@ -549,9 +666,10 @@
         
         .proof-item:hover {
             transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         
-        /* Footer */
+        /* Footer with Animation */
         footer {
             background-color: var(--dark);
             padding: 3rem 2rem;
@@ -606,25 +724,34 @@
             .subsection {
                 width: 300px;
             }
+            
+            .rainbow-loader {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .percentage {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
+    <!-- Rainbow Loading Screen -->
     <div id="loading-screen">
-        <div class="loader">
-            <div class="loader-inner"></div>
-            <div class="loader-inner"></div>
-            <div class="loader-inner"></div>
+        <div class="rainbow-loader">
+            <div class="rainbow-circle"></div>
+            <div class="rainbow-circle"></div>
+            <div class="rainbow-circle"></div>
+            <div class="rainbow-circle"></div>
+            <div class="rainbow-circle"></div>
+            <div class="rainbow-circle"></div>
+            <div class="rainbow-circle"></div>
         </div>
-        <div class="loading-text">
-            WhatsApp Services
-            <div class="loading-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+        <div class="percentage" id="percentage">0%</div>
+        <div class="loading-text">WhatsApp Services Loading</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
         </div>
     </div>
 
@@ -858,105 +985,4 @@
     <footer>
         <ul class="footer-links">
             <li><a href="#bot-service">Bot Service</a></li>
-            <li><a href="#channel-boost">Channel Boost</a></li>
-            <li><a href="#paid-promotions">Paid Promotions</a></li>
-            <li><a href="#proof">Proof</a></li>
-        </ul>
-        <p class="copyright">© 2023 WhatsApp Services. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Loading Animation
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('loading-screen').style.opacity = '0';
-                setTimeout(function() {
-                    document.getElementById('loading-screen').style.display = 'none';
-                    document.body.classList.add('loaded');
-                    
-                    // Animate header
-                    document.querySelector('header').classList.add('visible');
-                    
-                    // Animate sections
-                    document.querySelectorAll('.hero, .main-section, .proof, footer').forEach(section => {
-                        section.classList.add('animate');
-                    });
-                }, 500);
-            }, 2000); // Show loading screen for 2 seconds
-        });
-
-        // Simple tab functionality for proof section
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.proof-tab');
-            const proofItems = document.querySelectorAll('.proof-item');
-            
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Remove active class from all tabs
-                    tabs.forEach(t => t.classList.remove('active'));
-                    // Add active class to clicked tab
-                    this.classList.add('active');
-                });
-            });
-            
-            // Add click effect to proof items
-            proofItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // In a real implementation, this would open a modal with the full image
-                    alert('Proof image clicked. In a real implementation, this would open a larger view.');
-                });
-            });
-            
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if(targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if(targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Followers select functionality
-            const select = document.getElementById("followersSelect");
-            const buyBtn = document.getElementById("followersBuyBtn");
-
-            updateLink();
-            select.addEventListener("change", updateLink);
-
-            function updateLink() {
-                const selected = select.value;
-                let message = "";
-
-                if (selected.includes("1K")) {
-                    message = "Order 1K Followers please send details:-";
-                } else if (selected.includes("2K")) {
-                    message = "Order 2K Followers please send details:-";
-                }
-
-                buyBtn.href = "https://wa.me/728899640?text=" + encodeURIComponent(message);
-            }
-            
-            // Reacts select functionality
-            function buyReacts() {
-                const plan = document.getElementById("reactsSelect").value;
-                if (!plan) {
-                    alert("Please select a plan first!");
-                    return;
-                }
-                const phone = "728899640";
-                const url = `https://wa.me/${phone}?text=I%20want%20to%20buy%20${encodeURIComponent(plan)}`;
-                window.open(url, "_blank");
-            }
-        });
-    </script>
-</body>
-</html>
+            <li><a href="#channel-bo
